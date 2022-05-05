@@ -1,11 +1,15 @@
 # Databricks notebook source
-# MAGIC %md ###### variables should be set using databricks-cli (refer to notes)
+# Variables set using the following commands in the databricks-cli:
+# databricks secrets create-scope --scope users --initial-manage-principle "users"
+# databricks secrets put --scope users --key keyName
 
 # COMMAND ----------
 
-endpoint = "App Endpoint"
-secret = "App Secret"
-add_id = "App Id"
+import sys
+
+endpoint = dbutils.secrets.get(scope="users", key="CLIENT_ID")
+secret = dbutils.secrets.get(scope="users", key="TOKEN")
+add_id = dbutils.secrets.get(scope="users", key="APP_ID")
 storage_account_name = "oliverdaslsa"
 file_system_name = "sandbox"
 

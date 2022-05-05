@@ -4,9 +4,9 @@
 
 # COMMAND ----------
 
-df.write \
+newDf.write \
   .format("delta") \
-  .save(raw_file_path)
+  .save(bronze_file_path)
 
 # COMMAND ----------
 
@@ -14,4 +14,18 @@ df.write \
 
 # COMMAND ----------
 
-spark.sql("CREATE TABLE " + raw_table + " USING DELTA LOCATION '" + raw_file_path + "'")
+spark.sql("CREATE OR REPLACE TABLE " + bronze_table + "(Region string,\
+  Country string,\
+  Item_Type string,\
+  Sales_Channel string,\
+  Order_Priority string,\
+  Order_Date date,\
+  Order_ID integer,\
+  Ship_Date date,\
+  Units_Sold integer,\
+  Unit_Price float,\
+  Unit_Cost float,\
+  Total_Revenue double,\
+  Total_Cost double,\
+  Total_Profit double\
+  ) USING DELTA LOCATION '" + bronze_file_path + "'")
